@@ -1566,3 +1566,49 @@ body::after {
     display: none !important;
 
 }
+
+
+/* =========================
+   STARRY BACKGROUND (index page)
+   Pure CSS: no images, no JavaScript, so it does not slow loading.
+   Every star has its own size, speed and starting point,
+   so they twinkle at random, one by one.
+   ========================= */
+
+.stars {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.stars i {
+    position: absolute;
+    width: var(--z);
+    height: var(--z);
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 0 4px rgba(255, 255, 255, 0.7);
+    opacity: 0.12;
+    animation: twinkle var(--d) ease-in-out var(--s) infinite;
+}
+
+/* mostly dim, then a soft flash */
+@keyframes twinkle {
+    0%, 55%, 100% { opacity: 0.12; }
+    78% { opacity: var(--p); }
+}
+
+/* keep the page content above the stars */
+.stars ~ main {
+    position: relative;
+    z-index: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .stars i {
+        animation: none;
+        opacity: 0.5;
+    }
+}

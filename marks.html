@@ -2,6 +2,14 @@
 <html lang="en">
 <head>
 
+    <!-- sends visitors without the password to the password page BEFORE anything shows -->
+    <script>
+        if (localStorage.getItem("access") !== "granted") {
+            window.location.replace("password.html");
+        }
+    </script>
+
+
     <meta charset="UTF-8">
 
     <meta

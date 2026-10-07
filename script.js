@@ -1,6 +1,5 @@
 /* =========================
    SUPABASE SETTINGS
-   Paste your own values here (Project Settings -> API)
    Use the anon / public key ONLY, never service_role
    ========================= */
 
@@ -112,92 +111,117 @@ function getDeviceId() {
 
 
 /* =========================
-   PAGE 1
+   ACCESS (the password page sets this after a correct password)
+   ========================= */
+
+function hasAccess() {
+    return localStorage.getItem("access") === "granted";
+}
+
+function goToGate() {
+    localStorage.removeItem("access");
+    window.location.replace("password.html");
+}
+
+
+/* =========================
+   SELECT PAGE (index.html)
    ========================= */
 
 const subjectGrid = document.getElementById("subject-grid");
 
 if (subjectGrid) {
 
-    const examContainer = document.getElementById("exam-container");
-    const examGrid = document.getElementById("exam-grid");
-    const continueButton = document.getElementById("continue-btn");
+    if (!hasAccess()) {
+        goToGate();
+    } else {
+        initSelectPage();
+    }
 
-    let selectedSubject = "";
-    let selectedExam = "";
+
+    function initSelectPage() {
+
+        const examContainer = document.getElementById("exam-container");
+        const examGrid = document.getElementById("exam-grid");
+        const continueButton = document.getElementById("continue-btn");
+
+        let selectedSubject = "";
+        let selectedExam = "";
 
 
-    document
-        .querySelectorAll(".selection-box[data-subject]")
-        .forEach(function (button) {
+        document
+            .querySelectorAll(".selection-box[data-subject]")
+            .forEach(function (button) {
 
-            button.addEventListener("click", function () {
+                button.addEventListener("click", function () {
 
-                document
-                    .querySelectorAll(".selection-box[data-subject]")
-                    .forEach(function (btn) {
-                        btn.classList.remove("selected");
+                    document
+                        .querySelectorAll(".selection-box[data-subject]")
+                        .forEach(function (btn) {
+                            btn.classList.remove("selected");
+                        });
+
+                    this.classList.add("selected");
+
+                    selectedSubject = this.dataset.subject;
+                    selectedExam = "";
+
+                    continueButton.classList.add("hidden");
+                    examGrid.innerHTML = "";
+
+                    examOptions[selectedSubject].forEach(function (exam) {
+
+                        const examButton = document.createElement("button");
+
+                        examButton.className = "selection-box";
+                        examButton.textContent = exam;
+                        examButton.dataset.exam = toKey(exam);
+
+                        examGrid.appendChild(examButton);
+
+                        examButton.addEventListener("click", function () {
+
+                            document
+                                .querySelectorAll("#exam-grid .selection-box")
+                                .forEach(function (btn) {
+                                    btn.classList.remove("selected");
+                                });
+
+                            this.classList.add("selected");
+
+                            selectedExam = this.dataset.exam;
+
+                            continueButton.classList.remove("hidden");
+
+                        });
+
                     });
 
-                this.classList.add("selected");
-
-                selectedSubject = this.dataset.subject;
-                selectedExam = "";
-
-                continueButton.classList.add("hidden");
-                examGrid.innerHTML = "";
-
-                examOptions[selectedSubject].forEach(function (exam) {
-
-                    const examButton = document.createElement("button");
-
-                    examButton.className = "selection-box";
-                    examButton.textContent = exam;
-                    examButton.dataset.exam = toKey(exam);
-
-                    examGrid.appendChild(examButton);
-
-                    examButton.addEventListener("click", function () {
-
-                        document
-                            .querySelectorAll("#exam-grid .selection-box")
-                            .forEach(function (btn) {
-                                btn.classList.remove("selected");
-                            });
-
-                        this.classList.add("selected");
-
-                        selectedExam = this.dataset.exam;
-
-                        continueButton.classList.remove("hidden");
-
-                    });
+                    examContainer.classList.remove("hidden");
 
                 });
 
-                examContainer.classList.remove("hidden");
-
             });
+
+
+        continueButton.addEventListener("click", function () {
+
+            if (!selectedSubject || !selectedExam) {
+                return;
+            }
+
+            window.location.href =
+                `marks.html?subject=${selectedSubject}&exam=${selectedExam}`;
 
         });
 
-
-    continueButton.addEventListener("click", function () {
-
-        if (!selectedSubject || !selectedExam) {
-            return;
-        }
-
-        window.location.href =
-            `marks.html?subject=${selectedSubject}&exam=${selectedExam}`;
-
-    });
+    }
 
 }
 
 
 /* =========================
-   PAGE 2
+   MARKS PAGE (marks.html)
    ========================= */
 
 const marksPage = document.querySelector(".marks-page");
@@ -217,7 +241,9 @@ if (marksPage) {
             return toKey(e) === selectedExam;
         });
 
-    if (!isValid) {
+    if (!hasAccess()) {
+        goToGate();
+    } else if (!isValid) {
         window.location.replace("index.html");
     } else {
         initMarksPage();
@@ -273,10 +299,11 @@ if (marksPage) {
 
         async function loadMyMark() {
 
-            const { data } = await db.rpc("get_my_mark", {
+            const { data, error } = await db.rpc("get_my_mark", {
                 p_subject_exam: subjectExam,
                 p_device_id: deviceId
             });
+
 
             if (data !== null && data !== undefined) {
                 markInput.value = data;
@@ -295,6 +322,7 @@ if (marksPage) {
             const { data, error } = await db.rpc("get_stats", {
                 p_subject_exam: subjectExam
             });
+
 
             if (error || !data || !data[0]) {
                 emptyState.textContent = "Could not load statistics.";
@@ -361,6 +389,7 @@ if (marksPage) {
             });
 
             submitButton.disabled = false;
+
 
             if (error) {
 

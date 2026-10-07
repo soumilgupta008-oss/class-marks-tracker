@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Class Statistics</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+
+    <main class="marks-page">
+
+
+        <!-- =========================
+             TOP 2/3
+             ========================= -->
+
+        <section class="marks-dashboard-top">
+
+
+            <div class="dashboard-header">
+
+                <button
+                    id="back-btn"
+                    class="back-button"
+                >
+                    ← Back
+                </button>
+
+
+                <div class="dashboard-heading">
+
+                    <div class="dashboard-badge">
+
+                        <span></span>
+
+                        Live Class Statistics
+
+                    </div>
+
+
+                    <h1 id="page-title">
+                        Mathematics
+                    </h1>
+
+
+                    <p id="page-subtitle">
+                        CAT-1
+                    </p>
+
+                </div>
+
+
+                <div></div>
+
+            </div>
+
+
+            <!-- AVERAGE -->
+
+            <div class="average-section">
+
+                <p class="average-label">
+                    CLASS AVERAGE
+                </p>
+
+
+                <div class="average-number-wrapper">
+
+                    <span
+                        id="average"
+                        class="average-number"
+                    >
+                        —
+                    </span>
+
+
+                    <span
+                        id="average-max"
+                        class="average-max"
+                    >
+                        / 50
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- OTHER STATS -->
+
+            <div class="secondary-stats">
+
+
+                <div class="dashboard-stat">
+
+                    <p>
+                        Highest
+                    </p>
+
+                    <strong id="highest">
+                        —
+                    </strong>
+
+                    <span id="highest-max">
+                        / 50
+                    </span>
+
+                </div>
+
+
+                <div class="dashboard-stat">
+
+                    <p>
+                        Submissions
+                    </p>
+
+                    <strong id="submissions">
+                        0
+                    </strong>
+
+                    <span>
+                        students
+                    </span>
+
+                </div>
+
+
+            </div>
+
+
+            <div
+                id="empty-state"
+                class="dashboard-empty"
+            >
+                No submissions yet.
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =========================
+             BOTTOM 1/3
+             ========================= -->
+
+        <section class="marks-dashboard-bottom">
+
+
+            <div class="input-section">
+
+
+                <div>
+
+                    <p class="input-eyebrow">
+                        YOUR SUBMISSION
+                    </p>
+
+
+                    <h2>
+                        Enter Your Marks
+                    </h2>
+
+
+                    <p>
+                        Enter the marks you received in this examination.
+                    </p>
+
+                </div>
+
+
+                <div>
+
+                    <div class="input-row">
+
+
+                        <div class="input-wrapper">
+
+                            <input
+                                type="number"
+                                id="mark"
+                                min="0"
+                                step="0.1"
+                                placeholder="Enter your marks"
+                            >
+
+
+                            <span id="maximum-marks">
+                                / 50
+                            </span>
+
+                        </div>
+
+
+                        <button
+                            id="submit-btn"
+                            class="submit-button"
+                        >
+                            Submit Marks
+                        </button>
+
+                    </div>
+
+
+                    <p
+                        id="error-message"
+                        class="error-message hidden"
+                    >
+                        Please enter a valid mark.
+                    </p>
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="script.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Class Marks Portal</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+</head>
+
+
+<body>
+
+
+    <main class="selection-page">
+
+
+        <!-- =========================
+             TOP 2/8
+             TITLE
+             ========================= -->
+
+        <section class="selection-title-section">
+
+            <div class="portal-badge">
+
+                <span></span>
+
+                Anonymous Class Portal
+
+            </div>
+
+
+            <h1 class="selection-title">
+
+                Class Marks Portal
+
+            </h1>
+
+
+            <p class="selection-subtitle">
+
+                Select your subject and examination.
+
+            </p>
+
+        </section>
+
+
+
+        <!-- =========================
+             SUBJECT 3/8
+             ========================= -->
+
+        <section class="selection-subject-section">
+
+            <div class="selection-content">
+
+                <label>
+                    Select Subject
+                </label>
+
+
+                <div
+                    id="subject-grid"
+                    class="subject-grid"
+                >
+
+
+                    <button
+                        class="selection-box"
+                        data-subject="python"
+                    >
+                        Python
+                    </button>
+
+
+                    <button
+                        class="selection-box"
+                        data-subject="chemistry"
+                    >
+                        Chemistry
+                    </button>
+
+
+                    <button
+                        class="selection-box"
+                        data-subject="math"
+                    >
+                        Math
+                    </button>
+
+
+                    <button
+                        class="selection-box"
+                        data-subject="english"
+                    >
+                        English
+                    </button>
+
+
+                    <button
+                        class="selection-box basic-engineering"
+                        data-subject="basic-engineering"
+                    >
+                        Basic Engineering
+                    </button>
+
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================
+             EXAM 2/8
+             ========================= -->
+
+        <section class="selection-exam-section">
+
+            <div
+                id="exam-container"
+                class="selection-content hidden"
+            >
+
+                <label>
+                    Select Exam
+                </label>
+
+
+                <div
+                    id="exam-grid"
+                    class="exam-grid"
+                ></div>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================
+             BOTTOM 1/8
+             CONTINUE
+             ========================= -->
+
+        <section class="selection-continue-section">
+
+            <button
+                id="continue-btn"
+                class="continue-button hidden"
+            >
+                Continue
+            </button>
+
+
+            <div class="privacy-box">
+
+                <div class="privacy-icon">
+                    🔒
+                </div>
+
+
+                <div>
+
+                    <p>
+                        Your submission is anonymous
+                    </p>
+
+                    <span>
+                        No name, student ID, email, or personal information is collected.
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>

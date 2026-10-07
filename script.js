@@ -115,11 +115,11 @@ function getDeviceId() {
    ========================= */
 
 function hasAccess() {
-    return localStorage.getItem("access") === "granted";
+    return sessionStorage.getItem("access") === "granted";
 }
 
 function goToGate() {
-    localStorage.removeItem("access");
+    sessionStorage.removeItem("access");
     window.location.replace("password.html");
 }
 
